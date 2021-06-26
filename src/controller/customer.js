@@ -3,7 +3,7 @@ const nodeMailer = require('nodemailer');
 
 const createCustomer = async (req, res) => {
 	try {
-		console.log(req.data);
+		console.log(req.body);
 		await customerModal.create(req.body, (err, data) => {
 			console.log(data);
 			if (err) {

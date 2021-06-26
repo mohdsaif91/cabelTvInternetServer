@@ -22,7 +22,7 @@ app.listen(port, async () => {
 			}
 		})
 		.catch((err) => {
-			console.log(err, 'Mongo DB error->', process.env.mongoDBURL);
+			console.log(err, 'Mongo DB error->', process.env.mongoDBURL, err);
 		});
 
 	/* eslint-enable no-console */
