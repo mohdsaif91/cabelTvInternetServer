@@ -7,10 +7,16 @@ app.listen(port, () => {
 		.connect(process.env.mongoDBURL, { useNewUrlParser: true, useUnifiedTopology: true })
 		.then((db, err) => {
 			if (db) {
-				console.log(`Listening: http://localhost:${port} connected`);
+				console.log(
+					`Listening: http://localhost:${port} connected`,
+					process.env.mongoDBURL
+				);
 			} else {
-				console.log(err);
+				console.log(err, process.env.mongoDBURL);
 			}
+		})
+		.catch((err) => {
+			console.log(err, 'Mongo DB error->', process.env.mongoDBURL);
 		});
 
 	/* eslint-enable no-console */

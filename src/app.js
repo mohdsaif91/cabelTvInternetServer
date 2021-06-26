@@ -3,7 +3,8 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({ path: 'ENV_FILENAME' });
 
 const middlewares = require('./middlewares');
 const api = require('./api');
