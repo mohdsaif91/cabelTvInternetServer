@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 // require('dotenv').config();
-require('dotenv').config({ path: 'ENV_FILENAME' });
+require('dotenv').config();
 
 const middlewares = require('./middlewares');
 const api = require('./api');
@@ -28,7 +28,7 @@ app.get('/', async (req, res) => {
 		.then((db, err) => {
 			console.log('in Then');
 			if (db) {
-				console.log(process.env.mongoDBURL, db);
+				console.log(process.env.mongoDBURL);
 			} else {
 				console.log('in ERROR ', err, process.env.mongoDBURL);
 				res.json({
