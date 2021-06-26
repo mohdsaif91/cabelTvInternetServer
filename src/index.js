@@ -18,7 +18,7 @@ app.listen(port, async () => {
 					process.env.mongoDBURL
 				);
 			} else {
-				console.log(err, process.env.mongoDBURL);
+				console.log(err);
 			}
 		})
 		.catch((err) => {

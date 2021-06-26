@@ -17,7 +17,8 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+	console.log('staring connecting');
 	await mongoose
 		.connect(process.env.mongoDBURL, {
 			useNewUrlParser: true,
@@ -25,22 +26,24 @@ app.get('/', (req, res) => {
 			useUnifiedTopology: true,
 		})
 		.then((db, err) => {
+			console.log('in Then');
 			if (db) {
-				console.log(
-					`Listening: http://localhost:${port} connected`,
-					process.env.mongoDBURL
-				);
+				console.log(process.env.mongoDBURL, db);
 			} else {
-				console.log(err, process.env.mongoDBURL);
+				console.log('in ERROR ', err, process.env.mongoDBURL);
+				res.json({
+					// message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
+					message: err,
+				});
 			}
 		})
 		.catch((err) => {
+			res.json({
+				// message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
+				message: err,
+			});
 			console.log(err, 'Mongo DB error->', process.env.mongoDBURL, err);
 		});
-	res.json({
-		// message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
-		message: err,
-	});
 });
 
 app.use('/api/v1', api);
