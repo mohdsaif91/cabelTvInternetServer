@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
+const mongoose = require('mongoose');
 
 // require('dotenv').config();
 require('dotenv').config({ path: 'ENV_FILENAME' });
@@ -17,8 +18,28 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
+	await mongoose
+		.connect(process.env.mongoDBURL, {
+			useNewUrlParser: true,
+			useCreateIndex: true,
+			useUnifiedTopology: true,
+		})
+		.then((db, err) => {
+			if (db) {
+				console.log(
+					`Listening: http://localhost:${port} connected`,
+					process.env.mongoDBURL
+				);
+			} else {
+				console.log(err, process.env.mongoDBURL);
+			}
+		})
+		.catch((err) => {
+			console.log(err, 'Mongo DB error->', process.env.mongoDBURL, err);
+		});
 	res.json({
-		message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
+		// message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
+		message: err,
 	});
 });
 
